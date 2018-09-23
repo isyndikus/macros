@@ -20,7 +20,7 @@ extern "C" {
 
 typedef struct EXT_STR_h101_t
 {
-    EXT_STR_h101_LOS_onion_t los;
+//    EXT_STR_h101_LOS_onion_t los;
     EXT_STR_h101_unpack_t unpack;
     EXT_STR_h101_PSP_onion_t psp;
 } EXT_STR_h101;

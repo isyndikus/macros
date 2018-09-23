@@ -40,6 +40,12 @@ typedef struct EXT_STR_h101_t
     EXT_STR_h101_PSP_onion_t psp;
 } EXT_STR_h101;
 
+/*
+ * To run this macro: root -l -b 'unpack_pspx_online.C()'
+ * To change the range for the energy plots of the pspx, go to r3bbase/R3BOnlineSpectra.cxx, change the value Emax in
+ * Init() to a propriate number, recompile.
+ */
+
 void unpack_pspx_online(Int_t date = 180821, Int_t detector = 2, Int_t runid = 21)
 {
     //    Int_t RunId=100;
@@ -51,10 +57,10 @@ void unpack_pspx_online(Int_t date = 180821, Int_t detector = 2, Int_t runid = 2
 
     /* Create source using ucesb for input ------------------ */
 
-    //    TString filename = "stream://x86l-3";
-    //    TString filename = "stream://lxfs186:8000";
-    TString filename = Form("/u/land/psp/pspx_lmd/%d_det%d_run%d.lmd", date, detector, runid);
-    TString outputFileName = Form("/tmp/pspx_%d_det%d_run%d.root", date, detector, runid);
+    // TString filename = "stream://x86l-23";
+    // TString outputFileName = "/tmp/pspx_stream_test.root";
+    TString filename = Form("/u/land/psp/pspx_lmd/%d_det%d_run[1-3][0-9].lmd", date, detector);
+    TString outputFileName = Form("/tmp/pspx_%d_det%d.root", date, detector);
     TString ntuple_options = "UNPACK:EVENTNO,UNPACK:TRIGGER,RAW,PSPX";
     // TString ucesb_dir = getenv("UCESB_DIR");
     // TString ucesb_path = ucesb_dir + "/../upexps/jun16Xe/jun16Xe";
@@ -68,10 +74,12 @@ void unpack_pspx_online(Int_t date = 180821, Int_t detector = 2, Int_t runid = 2
     // TString parPspxCalFileName = "s444_pspx_cal_default.par";
     // TString parPspxHitFileName = "s444_pspx_hit_default.par";
 
-    TString parPspxMappedFileName = "kvi2018_pspx_mapped.par";
-    TString parPspxPrecalFileName = "kvi2018_pspx_precal_default.par";
-    TString parPspxCalFileName = "kvi2018_pspx_cal_default.par";
-    TString parPspxHitFileName = "kvi2018_pspx_hit_default.par";
+    // for data taken with an alpha source during the preparation of the phase0 experiments. only one detector read out
+    // with a single filter
+    TString parPspxMappedFileName = "alpha18_pspx_mapped.par";
+    TString parPspxPrecalFileName = Form("alpha18_det%d_pspx_precal.par", detector);
+    TString parPspxCalFileName = Form("alpha18_det%d_pspx_cal.par", detector);
+    TString parPspxHitFileName = "alpha18_pspx_hit_default.par";
 
     EXT_STR_h101 ucesb_struct;
     R3BUcesbSource* source =
