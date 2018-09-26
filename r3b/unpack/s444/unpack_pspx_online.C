@@ -13,26 +13,7 @@
 //#include "/home/bloeher/git/R3BRoot/r3bsource/ext_h101_full.h"
 // #include "/u/syndikus/R3BRoot/r3bsource/ext_h101.h"
 // }
-/*
-#include "ext_h101_psp.h"
-#include "ext_h101_unpack.h"
 
-#include "FairLogger.h"
-#include "FairParAsciiFileIo.h"
-#include "FairRunOnline.h"
-#include "FairRuntimeDb.h"
-
-#include "R3BOnlineSpectra.h"
-#include "R3BPspxCal2Hit.h"
-#include "R3BPspxMapped2Precal.h"
-#include "R3BPspxPrecal2Cal.h"
-#include "R3BPspxReader.h"
-#include "R3BUcesbSource.h"
-
-#include "TList.h"
-#include "TStopwatch.h"
-#include "TString.h"
-*/
 typedef struct EXT_STR_h101_t
 {
     //  EXT_STR_h101_LOS_onion_t los;
@@ -141,7 +122,7 @@ void unpack_pspx_online(Int_t date = 180821, Int_t detector = 2, Int_t runid = 2
     R3BPspxPrecal2Cal* pspxPrecal2Cal = new R3BPspxPrecal2Cal("PspxPrecal2Cal", 1);
     run->AddTask(pspxPrecal2Cal);
 
-    R3BPspxCal2Hit* pspxCal2Hit = new R3BPspxCal2Hit("PspxCal2Hit", 1);
+    R3BPspxCal2Hit* pspxCal2Hit = new R3BPspxCal2Hit("PspxCal2Hit", 1, 0.1);
     run->AddTask(pspxCal2Hit);
 
     /* ------------------------------------------------------ */
@@ -152,10 +133,10 @@ void unpack_pspx_online(Int_t date = 180821, Int_t detector = 2, Int_t runid = 2
     /* Initialize ------------------------------------------- */
     run->Init();
     rtdb1->print();
-    //    FairLogger::GetLogger()->SetLogScreenLevel("WARNING");
+      //  FairLogger::GetLogger()->SetLogScreenLevel("WARNING");
     //    FairLogger::GetLogger()->SetLogScreenLevel("DEBUG");
-    // FairLogger::GetLogger()->SetLogScreenLevel("ERROR");
-    FairLogger::GetLogger()->SetLogScreenLevel("INFO");
+     FairLogger::GetLogger()->SetLogScreenLevel("ERROR");
+    //FairLogger::GetLogger()->SetLogScreenLevel("INFO");
 
     /* Run -------------------------------------------------- */
     run->Run((nev < 0) ? nev : 0, (nev < 0) ? 0 : nev);
